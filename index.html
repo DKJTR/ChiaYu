@@ -18,10 +18,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!--data-hj-whitelist can be appended as either an attribute or a class -->
 <!-- Whitelist and record any keystroke data typed in input fields -->
-你的名字:<br>
-<input name="code" type="text" data-hj-whitelist />
+<label for="name">妳的名字:</label>
+<input name="code" placeholder="妳的全名" type="text" data-hj-whitelist /><br>
 你想對傑克說的話:<br>
-<input class="form-control data-hj-whitelist" name="quantity" type="text" />
+<input class="form-control data-hj-whitelist" name="quantity" type="text" /><br>
+<form action="/action_page.php">
+  <input type="submit" value="快按我">
+</form>
 <!-- Whitelist and record any keystroke data typed in textareas -->
 
 
@@ -30,10 +33,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p>I'm hosted with GitHub Pages.</p>
 
 <form action="/action_page.php">
-  你的名字:<br>
-  <input type="text" name="name" value="朋友"><br>
-  想跟傑克說的話:<br>
-  <input type="text" name="lastname" value="特別的帥"><br><br>
   <input type="submit" value="Submit">
 </form>
 
