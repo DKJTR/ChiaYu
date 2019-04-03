@@ -22,18 +22,18 @@ plt.xticks(rotation = 45)
 
 for line in graph['medians']:
     # get position data for median line
-    x, y = line.get_xydata()[1] # top of median line
+    x, y = line.get_xydata()[0] # left of median line
     # overlay median value
     text(x, y, '%.1f' % y,
-         ha='left') # draw above, centered
+         ha='left')
 
 for line in graph['boxes']:
     x, y = line.get_xydata()[0] # bottom of left line
     text(x, y, '%.1f' % y,
-         va='center', # centered
-         ha='left')      # below
+         va='bottom', 
+         ha='left')     
     x, y = line.get_xydata()[3] # bottom of right line
     text(x, y, '%.1f' % y,
-         va='center', # centered
+         va='bottom', # centered
              ha='left')
 plt.show()
