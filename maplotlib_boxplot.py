@@ -18,7 +18,7 @@ graph = plt.boxplot([tag1,tag2], labels = ['新聞雜誌:商業與經濟新聞',
 plt.boxplot([tag1,tag2], labels = ['新聞雜誌:商業與經濟新聞','地區:台灣北部'], sym='')
 plt.xticks(rotation = 45)
 # plt.grid(axis = 'y')
-plt.show()
+
 
 for line in graph['medians']:
     # get position data for median line
@@ -36,3 +36,4 @@ for line in graph['boxes']:
     text(x,y, '%.1f' % x,
          horizontalalignment='center', # centered
              verticalalignment='top')      # below
+plt.show()
