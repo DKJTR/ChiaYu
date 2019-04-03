@@ -24,16 +24,16 @@ for line in graph['medians']:
     # get position data for median line
     x, y = line.get_xydata()[1] # top of median line
     # overlay median value
-    text(y, '%.1f' % y,
+    text(x, y, '%.1f' % y,
          ha='left') # draw above, centered
 
 for line in graph['boxes']:
     x, y = line.get_xydata()[0] # bottom of left line
-    text(y, '%.1f' % y,
+    text(x, y, '%.1f' % y,
          va='center', # centered
          ha='left')      # below
     x, y = line.get_xydata()[3] # bottom of right line
-    text(y, '%.1f' % y,
+    text(x, y, '%.1f' % y,
          va='center', # centered
              ha='left')
 plt.show()
