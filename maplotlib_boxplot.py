@@ -36,4 +36,10 @@ for line in graph['boxes']:
     text(x, y, '%.1f' % y,
          va='bottom', # centered
              ha='left')
+for line in graph['whisker']:
+    x, y = line.get_xydata()[1] # bottom of left line
+    text(x, y, '%.1f' % y,
+         va='bottom', 
+         ha='left')     
+
 plt.show()
