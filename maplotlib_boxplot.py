@@ -4,7 +4,7 @@ from pylab import *
 
 # 字型設定
 from matplotlib.font_manager import FontProperties
-plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei'] 
+plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei']
 plt.rcParams['axes.unicode_minus'] = False
 
 big_table = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\finished_big_table.csv")
@@ -48,8 +48,8 @@ for line in graph['medians']:
 for line in graph['boxes']:
     x, y = line.get_xydata()[0] # bottom of left line
     text(x, y, '%.1f' % y,
-         va='bottom', 
-         ha='left')     
+         va='bottom',
+         ha='left')
     x, y = line.get_xydata()[3] # bottom of right line
     text(x, y, '%.1f' % y,
          va='bottom', # centered
@@ -57,10 +57,26 @@ for line in graph['boxes']:
 for line in graph['whiskers']:
     x, y = line.get_xydata()[1] # bottom of left line
     text(x, y, '%.1f' % y,
-         va='bottom', 
-         ha='left')     
+         va='bottom',
+         ha='left')
 
 
-plt.title("Top 10 Tags Box Plot (by uid count")
+plt.title("Top 10 Tags ox plot")
 plt.show()
 plt.savefig("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\result.png")
+
+# Random Profile and Plotting
+import random
+x = random.randint(0,500000)
+print("The random picked profile index is..."+str(x))
+x_profile = big_table.iloc[x,0:334] # 334 is for original scores
+x_profile.dropna().sort_values(ascending = False).plot.bar()
+plt.show()
+
+
+
+# Building the table
+for i in log2_tf_table.columns:
+    column_name = "Log2(TF)_Log2(IDF)-" + i.split("[Log2(TF)]")[1]
+    row_index = i.split("[Log2(TF)]")[1]
+    log2_tf_idf_table[column_name] = log2_tf_table[i] * idf['IDF(log2N-log2d)'][row_index]
