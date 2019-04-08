@@ -69,10 +69,27 @@ plt.savefig("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\tf_square_idf_res
 # import random
 # x = random.randint(0,500000)
 # print("The random picked profile index is..."+str(x))
-# x_profile = big_table.iloc[x,0:334] # 334 is for original scores
-# x_profile.dropna().sort_values(ascending = False).plot.bar()
-# plt.show()
-#
+raw = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\big_table_original_table_result.csv")
+tf_idf = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\log2_tf_log2_idf_result.csv")
+tf_idf.drop(['Unnamed:0'], axis = 1, inplace = True)
+plt.interactive(False) # Necessary for PyCharm built-in plot shower
+index = 368408
+x_profile = tf_idf.iloc[index] # 334 is for original scores
+x_profile = x_profile.dropna().sort_values(ascending = False)
+x_profile.plot.bar()
+plt.show()
+
+x_profile_10 = x_profile.head(10).to_frame(name = 'tf_idf_score')
+for i in x_profile_10.index:
+    indexer = i.split("-")[1]
+    x_profile_10.loc[i,'Original Ranking'] = raw.iloc[index].dropna().rank(ascending = False, method = 'min')[indexer]
+print(x_profile_10)
+
+
+
+
+
+# plt.show(block = True) # Necessary for Windows pop-out matplotlib
 #
 #
 # # Building the table
@@ -99,7 +116,7 @@ def attention_count(df):
         result_df = pd.concat([result_df,interm],join = 'outer', axis = 0, sort = False)
     ranking_table = pd.DataFrame()
     for i in result_df.columns:
-        ranking_table.pd.concat([ranking_table,result_df[i].value_counts().to_frame()], join = 'outer', axis = 1, sort = False)
+        ranking_table = pd.concat([ranking_table,result_df[i].value_counts().to_frame()], join = 'outer', axis = 1, sort = False)
     return ranking_table
 
 
