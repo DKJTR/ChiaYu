@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+from tabulate import tabulate
 from pylab import *
 
 # 字型設定
@@ -72,16 +73,18 @@ plt.savefig("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\tf_square_idf_res
 raw = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\big_table_original_table_result.csv")
 tf_idf = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\log2_tf_log2_idf_result.csv")
 tf_idf.drop(['Unnamed:0'], axis = 1, inplace = True)
+
 plt.interactive(False) # Necessary for PyCharm built-in plot shower
 index = 368408
 x_profile = tf_idf.iloc[index] # 334 is for original scores
 x_profile = x_profile.dropna().sort_values(ascending = False)
 x_profile.plot.bar()
 plt.show()
+# plt.show(block = True) # Necessary for Windows pop-out matplotlib
 
 x_profile_10 = x_profile.head(10).to_frame(name = 'tf_idf_score')
 for i in x_profile_10.index:
-    indexer = i.split("-")[1]
+    indexer = i.split("-",maxsplit = 1)[1]
     x_profile_10.loc[i,'Original Ranking'] = raw.iloc[index].dropna().rank(ascending = False, method = 'min')[indexer]
 print(x_profile_10)
 
@@ -89,7 +92,7 @@ print(x_profile_10)
 
 
 
-# plt.show(block = True) # Necessary for Windows pop-out matplotlib
+
 #
 #
 # # Building the table
