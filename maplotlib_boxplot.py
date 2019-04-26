@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from tabulate import tabulate
 from pylab import *
 
 # 字型設定
@@ -72,7 +71,7 @@ plt.savefig("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\tf_square_idf_res
 # print("The random picked profile index is..."+str(x))
 raw = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\big_table_original_table_result.csv")
 tf_idf = pd.read_csv("C:\\Users\\DKJTR\\Desktop\\tag_score_standardize\\log2_tf_log2_idf_result.csv")
-tf_idf.drop(['Unnamed:0'], axis = 1, inplace = True)
+tf_idf.drop(['Unnamed: 0'], axis = 1, inplace = True)
 
 plt.interactive(False) # Necessary for PyCharm built-in plot shower
 index = 368408
@@ -135,3 +134,20 @@ def rank_trans(rank,total_rank):
         return "L"
     else:
         return np.nan
+
+# 日、周 意圖資料個數符合規格的
+def intention_varification(df):
+    raw = df
+    for index, row in raw.iterrows():
+        sample_week_df = json_normalize(ast.literal_eval(raw['intent_week'][index]))
+        sample_day_df = json_normalize(ast.literal_eval(raw['intent_day'][index]))
+        sample_week_df['week_length'] = sample_week_df['wl'].apply(lambda row: len(row))
+        sample_day_df['day_length'] = sample_day_df['dl'].apply(lambda row: len(row))
+        week_list = list()
+        day_list = list()
+        for i in sample_week_df[sample_week_df['week_length'] >= 2]['t']:
+            week_list.append(i)
+        for j in sample_day_df[sample_day_df['day_length'] >= 2]['t']:
+            day_list.append(j)
+        raw.loc[index, ['week_length >1']] = str(week_list)
+        raw.loc[index, ['day_length > 1']] = str(day_list)
