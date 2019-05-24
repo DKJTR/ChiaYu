@@ -35,10 +35,8 @@ for index, row in raw.iterrows():
                                passwd=sql_password, db=sql_main_database,
                                port=tunnel.local_bind_port)
         if raw.iloc[index]['url_pattern'] is np.nan:
-            query = '''select count(*) from dmp_stat.20190422 where `source` = "%s" and `site_id` = %s''' % (
-            raw.iloc[index]['source'], str(raw.iloc[index]['site_id']))
-            data = pd.read_sql_query(query, conn)
-            raw.loc[index, ['Jack_Result']] = data.iloc[0]['count(*)']
+            raw.loc[index, ['Jack_Result']] = "Skip"
+            continue
         else:
             query = '''select count(*) from dmp_stat.20190422 where `source` = "%s" and `site_id` = %s and `url` like "%%%s%%"''' % (
             raw.iloc[index]['source'], raw.iloc[index]['site_id'], str(raw.iloc[index]['url_pattern']))
