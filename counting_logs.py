@@ -36,7 +36,6 @@ for index, row in raw.iterrows():
                                port=tunnel.local_bind_port)
         if raw.iloc[index]['url_pattern'] is np.nan:
             raw.loc[index, ['Jack_Result']] = "Skip"
-            continue
         else:
             query = '''select count(*) from dmp_stat.20190422 where `source` = "%s" and `site_id` = %s and `url` like "%%%s%%"''' % (
             raw.iloc[index]['source'], raw.iloc[index]['site_id'], str(raw.iloc[index]['url_pattern']))
